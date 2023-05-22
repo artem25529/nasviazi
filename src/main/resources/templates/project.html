@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="master" th:with="title='Home'">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h2>Укажите данные для проекта</h2>
+        <br/>
+        <form id="project-form" method="POST" th:action="@{/project/process/{system}(system=${param.system != null ? param.system.get(0) : ''})}">
+            <fieldset>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="project-name">Проект</label>
+                        <br/>
+                        <input id="project-name" name="project" type="text">
+                        <br/>
+                        <label for="advert-comp">Рекламная кампания</label>
+                        <br/>
+                        <input id="advert-comp" name="advertCampaign" type="text">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="target-url">Целевой URL</label>
+                        <br/>
+                        <input id="target-url" name="targetUrl" type="text">
+                        <br/>
+                        <label>Рекламная система</label>
+                        <br/>
+                        <input id="yandex-system" name="advertSystem" type="radio" value="yandex"
+                               th:checked="${param.system != null && param.system.get(0) == 'yandex'}">
+                        <label for="yandex-system">Yandex</label>
+                        <input id="google-system" name="advertSystem" type="radio" value="google"
+                               th:checked="${param.system != null && param.system.get(0) == 'google'}">
+                        <label for="google-system">Google</label>
+                    </div>
+                </div>
+            </fieldset>
+            <br/>
+            <div class="row" th:if="${param.system != null}">
+                <fieldset>
+                    <th:block th:if="${param.system.get(0) == 'yandex'}">
+                        <div th:replace="fragments/system :: yandex"></div>
+                    </th:block>
+                    <th:block th:if="${param.system.get(0) == 'google'}">
+                        <div th:replace="fragments/system :: google"></div>
+                    </th:block>
+                </fieldset>
+            </div>
+            <div class="row" th:if="${param.success}">
+                Результат: <a th:href="@{/project/{id}(id=${project_id})}">Скачать excel файл</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

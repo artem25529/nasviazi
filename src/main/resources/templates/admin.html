@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        layout:decorate="master" th:with="title='Admin'">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <table class="table">
+            <tr>
+                <th>Пользователь</th>
+                <th>Проект</th>
+                <th>Дата</th>
+                <th>Результат</th>
+            </tr>
+            <tr th:each="project: ${projects}">
+                <td th:text="${project.username}"></td>
+                <td th:text="${project.project}"></td>
+                <td th:text="${project.date}"></td>
+                <td><a th:href="@{/project/{id}(id=${project.id})}" th:text="${project.project}"></a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

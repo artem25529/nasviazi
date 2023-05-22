@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="yandex">
+        <div class="col-lg-4">
+            <label for="keywords">Ключевые слова</label>
+            <br/>
+            <textarea id="keywords" name="keywords"></textarea>
+            <br/>
+            <label for="visible-url">Отображаемая ссылка</label>
+            <br/>
+            <input id="visible-url" name="visibleUrl" type="text">
+        </div>
+        <div class="col-lg-4">
+            <p th:each="i: ${#numbers.sequence(0, 2)}">
+                <label th:for="'variants[' + ${i} + '].header'">Заголовок 2</label>
+                <br/>
+                <input th:id="'variants[' + ${i} + '].header'" th:name="'variants[' + ${i} + '].header'">
+                <br/>
+                <label th:for="'variants[' + ${i} + '].description'">Описание</label>
+                <br/>
+                <input th:id="'variants[' + ${i} + '].description'" th:name="'variants[' + ${i} + '].description'">
+                <br/>
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-info" id="process-yandex">Обработать данные</button>
+        </div>
+    </div>
+
+    <div th:fragment="google">
+        <div class="col-lg-4">
+            <label for="keywords">Ключевые слова</label>
+            <br/>
+            <textarea id="keywords" name="keywords"></textarea>
+            <br/>
+            <label for="visible-url1">Отображаемый путь 1</label>
+            <br/>
+            <input id="visible-url1" name="visibleUrls" type="text">
+            <label for="visible-url2">Отображаемый путь 2</label>
+            <br/>
+            <input id="visible-url2" name="visibleUrls" type="text">
+        </div>
+        <div class="col-lg-4">
+            <p th:each="i: ${#numbers.sequence(2, 5)}">
+                <label th:for="'additional-header[' + ${i} + ']'">Дополнительный заголовок</label>
+                <br/>
+                <input th:id="'additional-header[' + ${i} + ']'" th:placeholder="'Вариант ' + ${i}" name="additionalHeaders">
+                <br/>
+                <label th:for="'position[' + ${i} + ']'">Позиция</label>
+                <br/>
+                <input th:id="'position[' + ${i} + ']'" type="number" name="positions">
+                <br/>
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <label for="desc1">Описание 1</label>
+            <br/>
+            <input id="desc1" name="descriptions" placeholder="Вариант 1">
+            <br/>
+            <label for="desc2">Описание 1</label>
+            <br/>
+            <input id="desc2" name="descriptions" placeholder="Вариант 2">
+            <br/>
+            <label for="desc3">Описание 2</label>
+            <br/>
+            <input id="desc3" name="descriptions" placeholder="Вариант 3">
+            <br/>
+            <label for="desc4">Описание 2</label>
+            <br/>
+            <input id="desc4" name="descriptions" placeholder="Вариант 4">
+            <br/>
+            <button class="btn btn-info" id="process-google">Обработать данные</button>
+        </div>
+    </div>
+</body>
+</html>
